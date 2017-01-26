@@ -1,0 +1,239 @@
+TUTORIAL
+
+FeynmanParameter[] and trace[]
+
+This package contains two programs.  trace[] computes traces of products of 
+gamma matrices.  FeynmanParameter[] converts integrals over momentum space 
+of the type encountered in Feynman diagrams with loops to integrals over 
+Feynman parameters.  The following describes the use of these two programs.
+
+Step 1: Copy the file feyn.m to the subdirectory on the hard disk which 
+	contains Mathematica (probably c:\math\).  
+Step 2: Start Mathematica as usual.
+Step 3: At the Mathematica input prompt (In[n]:=) type: <<feyn.m 
+	-This command loads the programs into main memory.
+
+The programs are now ready to be used.  By default, these programs work in 
+four dimensions.  If the user wishes to work in other than four dimensions, 
+he/she should type at the input prompt: dimension=d, where d is the number 
+of dimensions in which the programs will now work.
+
+Unfortunately, we can not use standard physics notation inside of 
+Mathematica.  So, in order to use trace[] and FeynmanParameter[], we need 
+a dictionary to convert from standard physics notation to the notation that 
+the programs understand.
+			      
+
+Standard Notation                           Mathematica Notation
+-----------------                           --------------------
+
+A. Tensors and Indices
+
+metric tensor                               g[a,b]
+
+tensor that appears in                      ghat[a,b]
+      a       5
+{gamma  ,gamma  } outside
+of four dimensions.
+(See page 291 of Comput. Phys. Commun. vol. 77 (1993))
+				       
+Levi-Civita tensor                          e[a,b,c,d]
+
+Lorentz indices                             p[a], k[b], etc.
+
+mass of the top quark,                      m[t], m[b], etc.
+mass of the bottom quark, etc.
+                                                              a
+p.q                                         p[a] q[a] (i.e., p q )
+                                                                a
+
+(Where the choice of the dummy symbol a is arbitrary except that it must
+ not be repeated elsewhere in the expression except as a mass label such
+as 'b' in m[b].  Note that the summation convention is always enforced.)
+
+
+B. Traces
+	   a      b          
+trace{gamma  gamma }                       trace[a,b] or tr[a,b]
+
+
+(Represent gamma matrices by their indices and replace products by commas 
+-see examples below.)
+
+	   a      b      5
+trace{gamma  gamma  gamma }                 trace[a,b,five] or tr[a,b,five]
+       
+	      5
+(replace gamma  by "five")
+
+	   a      b         5
+trace{gamma  gamma  (1+gamma )/2}           trace[a,b,(1+five)/2] or
+					    tr[a,b,(1+five)/2]
+
+
+trace{p-slash q-slash}                      trace[p[a]a,q[b]b] or 
+					    tr[p[a]a,q[b]b]
+
+(Where again the symbols a and b are arbitrary except that they must not be 
+repeated anywhere else in the expression except as mass labels.)
+
+
+
+
+C. Feynman Parameters
+
+
+Convert the integral                        FeynmanParameter[Expression,k] 
+     d                                      or fp[Expression,k]
+    d k                                     
+ ------------ (Expression) 
+  (2 Pi)^d
+
+to an integral over Feynman parameters.   
+Note that Expression must have at least 2 terms in its denominator of
+the form (k^2 + ...)^a.  Otherwise, Feynman parameters are not needed.
+
+(The result of FeynmanParameter must still be integrated from x[1]=0 to 1, 
+x[2]=0 to x[1], ..., x[n-1]=0 to x[n-2], where n is the number of terms in 
+the denominator of Expression of the form: (k^2+2p k+M^2)^a.  These 
+integrals can be performed by Mathematica's built-in functions Integrate[] 
+or NIntegrate[], if desired.)
+
+
+Convert the integral                        FeynmanParameter[Expression,k,j] 
+   d    d                                      or fp[Expression,k,j]
+  d j  d k                                     
+ ----------- (Expression) 
+ (2 Pi)^(2d)
+
+to an integral over Feynman parameters.   
+					 
+
+(The result of FeynmanParameter must still be integrated from x[1]=0 to 1, 
+x[2]=0 to x[1], ..., x[n-1]=0 to x[n-2] and from y[1]=0 to 1,
+y[2]=0 to y[1], ..., y[m-1]=0 to y[m-2], where n is the number of terms in 
+the denominator of Expression of the form: (k^2+2p k+M^2)^a and m is the 
+number of terms in the denominator of the form: (j^2+2p j+M^2)^a after the 
+k momentum integral has been transformed to an integral over Feynman 
+parameters.  FeynmanParameter(or fp)[Expression,k,j] is equivalent to 
+FeynmanParameter[FeynmanParameter[Expression,k],j].)
+
+
+Convert the integral                       FeynmanParameter[Expression,k,j,i] 
+  d   d   d                                  or fp[Expression,k,j,i]
+ d i d j d k                                     
+ ------------ (Expression) 
+ (2 Pi)^(3d)
+
+to an integral over Feynman parameters.   
+					 
+
+(The result of FeynmanParameter must still be integrated from x[1]=0 to 1, 
+x[2]=0 to x[1], ..., x[n-1]=0 to x[n-2], from y[1]=0 to 1, y[2]=0 to y[1], 
+..., y[m-1]=0 to y[m-2], and from z[1]=0 to 1, z[2]=0 to z[1], ..., 
+z[l-1]=0 to z[l-2], where n is the number of terms in the denominator of 
+Expression of the form: (k^2+2p k+M^2)^a, m is the number of terms in the 
+denominator of the form: (j^2+2p j+M^2)^a after the j momentum integral has 
+been converted to an integral over Feynman parameters, and l is the number 
+of terms in the denominator of the form: (i^2+2p i+M^2)^a after the 
+k momentum integral and the j momentum integral have been transformed to 
+integrals over Feynman parameters.  FeynmanParameter(or fp)[Expression,k,j,i]
+is equivalent to fp[fp[fp[Expression,k],j],i].)
+
+
+The above rules will become clearer if we examine a typical Mathematica 
+session in which trace[] and FeynmanParameter[] are used.  In the following 
+examples, comments will appear in parentheses.
+
+In[1]:= <<feyn.m
+
+In[2]:= tr[a,b]                         (Typing trace[a,b] will give the 
+					 same result.)
+Out[2]:= 4g[a,b]                        
+
+In[3]:= tr[a,b,five]                    
+
+Out[3]:= 0
+
+In[4]:= tr[v,1-five,(k[a]-p[a])a+m[b],s,1+five,(j[b]-q[b])b+m[t]]
+
+(Note that we would get the same result by replacing, for example, 
+(k[a]-p[a])a with (k[anything]-p[anything])anything as long as "anything" 
+appears nowhere else in the expression, except possibly as a mass label 
+such as 'b' in m[b].)
+
+Out[4]:= 8 g[s,v] m[b] m[t]
+
+In[5]:= dimension=d             (Let's work in d dimensions now.)
+
+Out[5]:= d
+
+In[6]:= tr[alpha,1+five,alpha,1+five]   (This trace is equal to 0 in four 
+					 dimensions.  Note: Repeated indices 
+					 are summed.)
+Out[6]:= -32+8d
+
+In[7]:= fp[k[a]/(((k-p)^ 2-m[w]^ 2)(k^ 2-m[t]^ 2)^ 2),k]
+
+               d/2
+Out[7]:= (I (-1)   Gamma[3-d/2] p[a] (1-x[1]) x[1]*
+                    2  2         2         2      2    2            d   d/2
+	 Power[-m[t] +p x[1]+m[t] x[1]-m[w] x[1]-p x[1] ,-3+d/2])/(2  Pi   )
+
+(This expression must now be integrated from x[1]=0 to x[1]=1 using either 
+Mathematica's numeric or symbolic integration functions.  For example:)
+  
+In[8]:= Integrate[ Evaluate[% /. d->4], {x[1],0,1}]
+
+          I    p[a]
+Out[8]:=  --  ------- + ...
+          16   2   2
+              p  Pi  
+
+In[9]:= dimension=4
+
+Out[9]:= 4
+
+In[10]:= Simplify[ FeynmanParameter[(k[a]+j[a])p[a]k[b]/(((k-j)^2-m[h]^2)^2
+         (k k-m[t]^2)^2 (j j-m[t]^2)^2),j,k] ]
+
+(FeynmanParameter[] and trace[] may be combined with other Mathematica 
+functions.)
+
+                                             4          2               2 
+Out[10]:= (-2+x[1])(-1+y[1])y[1] p[b]/(512 Pi (y[1] m[h] -x[1] y[1] m[h] +
+                   2     2    2     2         2
+          x[1] m[t] -x[1] m[t] +x[1] y[1] m[t] )
+
+(This expression should be integrated from x[1]=0 to x[1]=1 and from 
+y[1]=0 to y[1]=1 to give the correct expression for the momentum integrals.)
+
+Limitations:
+
+At present, FeynmanParameter[] can convert, at most, three momentum integrals 
+into integrals over Feynman parameters.  In addition, the numerator of 
+Expression in FeynmanParameter[Expression,k], for example, can contain 
+products of, at most, 5 k[a]'s.  As is noted above, it is also assumed that
+the denominator of Expression contains at least two terms of the form
+(k^2+...)^a.  If this is not the case, then Feynman parameters are not
+needed.  It is fairly straightforward to modify the programs to work for
+more general cases when (and if) necessary.  These modifications may be
+made by the user or by getting in touch with me.
+
+A more detailed discussion of these programs may be found in Computer
+Physics Communications vol. 77, 286 (1993).  If you would like to receive
+future updates of these programs, please send me your email address.
+
+Please contact me if you have any questions or comments.
+
+				Todd H. West
+				Theory Group
+				Department of Physics
+				University of Texas
+				Austin, Texas 78712
+
+				e-mail: toddwest@utaphy.ph.utexas.edu
+
+
+
+

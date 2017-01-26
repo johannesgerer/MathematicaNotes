@@ -1,0 +1,687 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     36254,        677]
+NotebookOptionsPosition[     35903,        660]
+NotebookOutlinePosition[     36238,        675]
+CellTagsIndexPosition[     36195,        672]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dir", "=", "\"\</home/data/MathematicaNotes/\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"files", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"expandNb", "=", "False"}], ";", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Expand", " ", "all", " ", "cell", " ", "groups", " ", "in", " ", "the", 
+    " ", "Notebook"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"files", "=", 
+   RowBox[{"FileNames", "[", 
+    RowBox[{"\"\<*.nb\>\"", ",", "dir", ",", "10"}], "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.694434974936469*^9, 3.694435012382222*^9}, {
+  3.694435079472821*^9, 3.694435110465452*^9}, {3.694435148277356*^9, 
+  3.694435165240542*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"/home/data/MathematicaNotes/computer science/binary splitting \
+memory usage on highest recursion level.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/computer science/spigot2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/computer science/spigot \
+streamline.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/computer science/text compression.nb\
+\"\>", ",", \
+"\<\"/home/data/MathematicaNotes/finance/2008/autocorrelation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/2008/indipendend copula.nb\"\
+\>", ",", "\<\"/home/data/MathematicaNotes/finance/2008/log zuwachs.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/2008/maximum copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/2008/minimum copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Asian Option.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/black scholes.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Black-Scholes.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/discrete1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/discrete_arbitrary.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/discrete.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/discrete_new.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/11-10-12 Strang \
+Symmetrized Splitting.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/11-10-12 \
+Timestepping for inhom linear ODE.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/11-10-13 \
+Splitting non linear ode.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/11-10-14 Notiz \
+Splitting -- Payoff Abziehen.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/11-10-19 Non \
+commuting splitting.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/11-10-25 Test \
+Sparse Matrices.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-02-21 BC \
+test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-02-29 Non \
+commuting splitting, homogenious but time dependent.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-05-04 \
+Splitting using homogenious coordinates.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-05-07 payoff \
+handling.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-03-1 \
+short vs long.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-03-2 \
+hedging with options.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-06 \
+Interpolation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-07 \
+Martin.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-07 \
+Spin.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-09 \
+Aktienr\[CapitalATilde]\.bcckkauf.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/12-06-16 Black \
+Scholes Propabalistic.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/14-08-05 pi(H) \
+exp util limitation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/14-08-08 p(H) \
+eigenes (sigma).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/14-08-13 \
+different forms of u.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-01-31 p(H) \
+forced close.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function alleviation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function continuum limit.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function continuum limit neu.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function continuum limit neu short (A).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function continuum limit neu short.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function continuum short.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function continuum short put.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-07 exp \
+util pricing function not analytic.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-17 \
+general optimum expectation of integral of discontinuity.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-02-26 \
+occupation time arc-sine law.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-03-18 local \
+variance premium.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-03-26 \
+weitere utility function.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-04-10 capped \
+exp util cont.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-04-10 capped \
+exp util.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-05-21 \
+paper3.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-05-29 \
+discounting the strike.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-05-29 paper3 \
+example always positive.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-06-03 capped \
+exp util (non concave).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-10-10 \
+optimal exp strategy zero claim.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-10-14 exp \
+util pricing function signularity and comaprison with program.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-10-20 finite \
+differences.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-10-21 \
+compare delta hedging and optimal hedging without transaction costs.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-10-21 \
+hedging interpolation for delta.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/15-11-16 sample \
+stock pathg.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/16-02-05 paper3 \
+revision alternative utility function.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/16-02-05 paper3 \
+revision.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/16-05-14 \
+fairlay.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/16-05-22 \
+schluss.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/analytical \
+solutions/test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/arbitrage band \
+example unkowable payoff monte carlo.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/compnent wise \
+convex.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/discrete \
+hedging/discrete.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/discrete \
+hedging/discrete vergleich mit mean variance.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/discrete \
+hedging/wilmott discrete hedging 773.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/\
+Korrelationsmatrix.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/LCP Choleksy.nb\
+\"\>", ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/LCP/LCP \
+solver.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/LCP/LCP \
+spielwiese.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/LCP/spliting \
+iterative.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/LCP/tridiagonal \
+test#.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/no longer \
+used/discrete 2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/no longer \
+used/discrete 4.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/no longer \
+used/discrete.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/Packages/BEWEIS \
+f\[CapitalATilde]\.bcr feynman kac formel.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/Packages/BEWEIS \
+f\[CapitalATilde]\.bcr Korrelierte Brownssche Bewegungen.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/passport \
+discrete optimal strategie.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/PDE Passport.nb\
+\"\>", ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/PDE \
+Sandbox.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/poisson.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/sandbox \
+discrete optimal strategie.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/Sandbox \
+skorokhod.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/sandbox using \
+local time.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/SDE PDE \
+Passport.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/SDE PDE sandbox \
+asymmetric.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/SDE PDE \
+sandbox.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/SDE PDE \
+template.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/check \
+if operators commute.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Comparisson and Convergence Orders of Timestepping Methods.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+definity of a tridiagonal matrix.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/finite \
+diferences.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Fortran problem1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+generalized eigensystesm.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+geometric average.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/grid \
+for m-matrix.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/Grid \
+generation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/HOC \
+Stencils.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/NNLS.\
+nb\"\>", ",", \
+"\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/problem \
+test2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+problem test3.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+problem test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Solution Import 2D.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Solution Import Cut 1D.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Solution Import Cut.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Solution Import.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Solution Import (Put Call 1D).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+StencilPoints.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Stencils.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Stencil Weights Checking Background.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stencils/\
+Stencil Weights Checking.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stochastic \
+maximum principle 2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/stochastic \
+maximum principle.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/timed changed \
+levy for passport.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/trying to \
+rotate stencils.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/dissertation/volas.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Feynman Kac equation ausf\
+\[CapitalATilde]\.bchrlich.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Feynman Kac equation.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/finance/Financial Data.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Ito.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/monte Carlo passport.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/finance/monte Carlo passport \
+optimal.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/monte Carlo vanilla.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/numerically understnad \
+passport optimal strategie.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/passport fomulas.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/passport hedging \
+entscheidung f\[CapitalATilde]\.bcr r=0 mein kunden ist mit tats. Wert \
+rechnen (kein hedgeverlust und weniger hedgevolumen).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/passport hedging.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/passport hedging with \
+discrete.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/passport multiasset \
+brownsche.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option \
+analytic.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option Jo \
+guthabenszins=0.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option Jo mehr \
+user.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option Jo multi \
+asset.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option Jo n asset \
+korrektion.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option Jo n \
+asset.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option Jo.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Option zwei \
+asset.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Passport Process \
+Simulation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/2dfit.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/4dim hermite interpol.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/4dim hermite interpol weninger ableitunge.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/2dfit.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/2dim hermite interpol.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/4d hypersurface.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/another approach lt werte.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/another approach.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/approach.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/b-splines f\[CapitalATilde]\.bcr 1d kum \
+verteilung.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/b-splines f\[CapitalATilde]\.bcr 2d kum.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/copula3d.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/copulates2t.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/copulatest2s fertig.e chte.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/copulatest2s fertig.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/copulatest.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/fitting1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/fitting.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/nobel.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/opti.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/anwendung/winkelsumme.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/autocorrelation.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/bicubic.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/bicubic ohne abl..nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/bidimensionale ableitung.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/bilinear4dimnb.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/bilinear.,nb.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/alex polys.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/approach1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/approach2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/approach3.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/approach.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/cubische splines mit hermite.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/Finite difference cubische splines mit \
+hermite.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/natural cubische splines mit hermite.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/cubical hermite/test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/aufl\[CapitalATilde]\[Paragraph]se nerwartungswert.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/markovitz.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/testaaa.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/testdaten excel.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/testdaten.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fertig/VaR.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/fitting.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/gumbel copula 3d fertig.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/gumbel copula 3d.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/gumbel copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/gut 2d.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/hermite.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/indipendend copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/Lagrange.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/log zuwachs.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/maximum copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/minimum copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/nurbs/!.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/nurbs/nurbs2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/nurbs/nurbs.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/qqplot.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/rational bezier/1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/rational bezier/copula.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/schlecht 3 dim.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/sehr gut 2 dim.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/sehr gut 3 dim.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/sehr gut.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/postbank finance award 2008 \
+hedgefunds/vielleicht gut 2d.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/roulette wette bis 36 facher \
+gewinn.nb\"\>", ",", "\<\"/home/data/MathematicaNotes/finance/skew.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/Stop-Loss Start-Gain (oder \
+Ito f\[CapitalATilde]\.bcr nicht stetige ableitungen).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/theta.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/finance/wilmott discrete hedging \
+773.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/Bose-Einstein \
+Geschwindigkeitsverteilung.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/bragg bcc.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/bragg diamond.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/bragg fcc.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/bragg.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/dirac equatiom.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/entropy maximum \
+2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/entropy maximum.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/physics/2008/fermi-gas.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/Landau levels.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/linear chain.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/reziporakal \
+lattive.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/rigid body \
+beispiel.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/rigid body gen.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/rigid body.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/Runge Kutta bewegung im \
+magentfeld.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/2008/Runge Kutta pendel.nb\"\
+\>", ",", "\<\"/home/data/MathematicaNotes/physics/2008/thermodynamic.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/physics/2008/zustandsdichte.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/physics/Binomial to Gauss.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/corr.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/definierende \
+Darstellung.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dieelektrizit\[CapitalATilde]\
+\[Currency]tszahl.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation graphene/alex \
+polynome.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation graphene/alex \
+polynome ortho.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene f+g,f-g2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene f+g,f-g.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene m=2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene p=4 m=10.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene p=4 m=2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Eigenwertsuche durch newton auf komplexer ebene p=4 m=5.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/fertig/m gr\[CapitalATilde]\[Paragraph]\[CapitalATilde]\.9fergleich \
+1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/fertig/m gr\[CapitalATilde]\[Paragraph]\[CapitalATilde]\.9fergleich \
+1 test2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/fertig/m gr\[CapitalATilde]\[Paragraph]\[CapitalATilde]\.9fergleich \
+1 test3.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/fertig/m gr\[CapitalATilde]\[Paragraph]\[CapitalATilde]\.9fergleich \
+1 test.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/fertig/m kleinergleich 0.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/fertig/operator.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/graphen0.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/graphen1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/graphen2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/graphene (paper 01).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/graphen.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/johannes polynome.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Lanczos 1dim oszi.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Lanczos Algorythm (p102).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Lanczos Wasserstoff Dirac.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac24_1.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac24_2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac24_analytisch2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac24_analytisch.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac3.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac alt.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/Runge Kutta Wasserstoff Dirac.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/dirac equation \
+graphene/wasserstoff dirac entkoppelt (paper 01).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/gamma espilon.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lattice \
+qcd/datenanalyse.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lattice \
+qcd/Dispersion.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lattice qcd/euklid.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lattice qcd/gamma espilon \
+minkowsky.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lattice qcd/impuls lattice \
+qcd.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lattice qcd/maximum ratio.nb\
+\"\>", ",", "\<\"/home/data/MathematicaNotes/physics/lattice \
+qcd/traces.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/lorentz trafo.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/Massenabh\[CapitalATilde]\
+\[Currency]nigkeit der Zerfallsbreite.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/NMR mearurements.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/quantum harmonic \
+oscillator.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/random_matrix.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/renorm.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/running coupling q.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/spin parity.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/spontaneous symmetry \
+breaking.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/physics/traces.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/11-07 Nachhilfe \
+Reals.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/12-04-22 \
+Karten.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/12-04-28 Code Jam R1A \
+D.nb\"\>", ",", "\<\"/home/data/MathematicaNotes/uncategorized/ArgMax.nb\"\>",
+    ",", "\<\"/home/data/MathematicaNotes/uncategorized/Determinant.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/felix problem (mit \
+plot).nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/felix problem.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/felix problem \
+rekursiv2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/felix problem \
+rekursiv.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Haushaltsbuch.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/hesse.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Jan.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Laplace.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/leasing.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Max Bachelor2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Max Bachelor.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/max gegenbeispiel.nb\"\
+\>", ",", "\<\"/home/data/MathematicaNotes/uncategorized/Maxiter BC \
+fit.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Monte Carlo \
+Neu.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Normliesierte \
+Bewertung Daniela JDP.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Pizza \
+quadratzentimeter preis mit abh\[CapitalATilde]\[Currency]ngig vom rand \
+12-04-06.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/queue.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Roulette2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Roulette.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/Sonnenbahn.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/teich.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/verallgemeinerte \
+hermite.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/wetten2.nb\"\>", 
+   ",", "\<\"/home/data/MathematicaNotes/uncategorized/wetten.nb\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.694435110804117*^9, {3.694435150240593*^9, 3.69443516570467*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"UFE", "=", "UsingFrontEnd"}], "}"}], ",", 
+   RowBox[{"Do", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"nb", "=", 
+       RowBox[{"UFE", "@", 
+        RowBox[{"NotebookOpen", "[", "file", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"expandNb", ",", 
+        RowBox[{
+         RowBox[{"UFE", "@", 
+          RowBox[{"SelectionMove", "[", 
+           RowBox[{"nb", ",", "All", ",", "Notebook"}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"UFE", "@", 
+          RowBox[{"FrontEndExecute", "[", 
+           RowBox[{
+           "FrontEndToken", "[", "\"\<SelectionOpenAllGroups\>\"", "]"}], 
+           "]"}]}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"UFE", "@", 
+       RowBox[{"NotebookPrint", "[", 
+        RowBox[{"nb", ",", 
+         RowBox[{"file", "<>", "\"\<.pdf\>\""}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"UFE", "@", 
+       RowBox[{"NotebookClose", "[", "nb", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"file", ",", "files"}], "}"}]}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.694435236034453*^9, 3.694435247428894*^9}, {
+  3.694435278469583*^9, 3.694435360815722*^9}}]
+},
+WindowSize->{958, 1185},
+WindowMargins->{{Automatic, 2}, {2, Automatic}},
+FrontEndVersion->"8.0 for Linux x86 (64-bit) (November 7, 2010)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 685, 17, 88, "Input"],
+Cell[1267, 41, 33339, 580, 6643, "Output"]
+}, Open  ]],
+Cell[34621, 624, 1278, 34, 107, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

@@ -1,0 +1,297 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      9338,        288]
+NotebookOptionsPosition[      8475,        260]
+NotebookOutlinePosition[      8818,        275]
+CellTagsIndexPosition[      8775,        272]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Exit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.510142567825206*^9, 3.5101425690062733`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PrependTo", "[", 
+   RowBox[{
+   "$Path", ",", 
+    "\"\<D:\\\\Users\\\\Johannes\\\\Promotion\\\\SVN \
+Rep\\\\Mathematica\\\\Packages\>\""}], "]"}], ";", 
+  RowBox[{"<<", "JoFin`"}]}]], "Input",
+ CellChangeTimes->{{3.510136379606681*^9, 3.5101363873264585`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"po", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+  RowBox[{"Max", "[", 
+   RowBox[{
+    RowBox[{"k", "-", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"x", " ", "y"}], "]"}]}], ",", "0"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.5116819216321287`*^9, 3.5116819338011503`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"a", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<D:\\\\Users\\\\Johannes\\\\Promotion\\\\SVN \
+Rep\\\\Programmierung\\\\Tridiagonal Solver Tests\\\\output\\\\sol.txt\>\"", 
+     ",", "\"\<Table\>\""}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]", "=", "0.2"}], ";", 
+  RowBox[{"\[Rho]", "=", "0.3"}], ";", 
+  RowBox[{"n", "=", "2"}], ";", 
+  RowBox[{"r", "=", "0.05"}], ";", 
+  RowBox[{"T", "=", "2"}], ";", 
+  RowBox[{"k", "=", "100"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\[Sigma]", ",", "d"}], "}"}], "=", 
+   RowBox[{"IsometricGeometricAverageParameters", "[", 
+    RowBox[{"\[Sigma]", ",", "0", ",", "\[Rho]", ",", "n"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"s", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{"BlackScholesPut", "[", 
+        RowBox[{
+         RowBox[{"Sqrt", "[", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ",", "k", ",", "T", ",", 
+         "r", ",", "\[Sigma]", ",", "d"}], "]"}]}], "}"}], "&"}], "/@", 
+    "a"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"d", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"Log", "[", 
+         RowBox[{"Abs", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", "3", "]"}], "]"}], "/", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "4", "]"}], "]"}]}], "-", "1"}], "]"}], "]"}], "/", 
+        RowBox[{"Log", "[", "10", "]"}]}]}], "}"}], "&"}], "/@", 
+    RowBox[{"Transpose", "[", 
+     RowBox[{"Append", "[", 
+      RowBox[{
+       RowBox[{"Transpose", "[", "a", "]"}], ",", 
+       RowBox[{"s", "[", 
+        RowBox[{"[", 
+         RowBox[{";;", ",", "3"}], "]"}], "]"}]}], "]"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{"po", "[", 
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], "}"}], "&"}], "/@", 
+    "a"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dp", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "3", "]"}], "]"}], "-", 
+        RowBox[{"po", "[", 
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}]}], "}"}], "&"}], "/@", 
+    "a"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot3D", "[", 
+  RowBox[{"a", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"a", ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}], ",", 
+     RowBox[{"ListPlot3D", "[", 
+      RowBox[{"a", ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"Mesh", "\[Rule]", "None"}]}], "]"}]}], "]"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQAWIQnfXlxg5b9VeOi88sPQaitzRLXQTRr7Q+g+me6fmP
+QfSbPTOfgugZV+bxOABpQ5GJgiB6WtN/JRD9oDRPGUQfzlqpAaKDLRq1QPQU
+d8kdZzWB5kW82wWi9eI2HQTRAjf3gWn969mTLgDpkqIHM0B0xT+GJSD6zI7y
+9SB6+vu/e0C03Z6ggyB6n1Ox0h8g/WlnB5i28Y74+xdInzsZDaZtPt5h/Aek
+mT7cB9Nz/NMFQHSLwWYwLRrwP59B65Vj3hTRYhAd6/OZ4zaQvhUpwQui7xlH
+CYNocf4EMH0h7a1bqvYrxz8S0l4geq6g7FkQzfXzxHkQDQDX7aDN
+  "]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.512843106646*^9, 3.5128431066772003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPointPlot3D", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"po", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "-", "4"}], ",", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "-", 
+        RowBox[{"po", "[", 
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}]}], "}"}], "&"}], "/@", 
+    "a"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "50"}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.511681849372802*^9, 3.5116818664860315`*^9}, {
+  3.51168195085198*^9, 3.5116819649076047`*^9}, {3.511682143080351*^9, 
+  3.511682163968787*^9}, {3.5116826145843897`*^9, 3.5116826148027897`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5128431020128*^9, 3.5128431020284*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot3D", "[", 
+  RowBox[{"p", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.510234674825626*^9, 3.510234933466302*^9, {3.5102395318968296`*^9, 
+   3.5102395319998355`*^9}, 3.51157807505196*^9}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5128430983311996`*^9, 3.5128430983624*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot3D", "[", 
+  RowBox[{"s", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.511583950750414*^9, 3.511583950821418*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5128430999848003`*^9, 3.512843100016*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot3D", "[", 
+  RowBox[{"d", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5102347719357967`*^9, 3.510234775773403*^9}, {
+   3.5102348626839705`*^9, 3.5102348656167755`*^9}, {3.5116768505850067`*^9, 
+   3.511676851489808*^9}, {3.5121304013864737`*^9, 3.5121304180964293`*^9}, 
+   3.512130453609461*^9, {3.512130496833933*^9, 3.512130507665552*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5128431009052*^9, 3.5128431009519997`*^9}}],
+
+Cell[BoxData["#"], "Input",
+ CellChangeTimes->{3.5124487129821997`*^9}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot3D", "[", 
+  RowBox[{"dp", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5124138332004004`*^9, 3.5124138337152*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5128431036196003`*^9, 3.512843103682*^9}}]
+},
+WindowSize->{856, 1065},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (November 7, 2010)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 138, 3, 31, "Input"],
+Cell[698, 25, 297, 8, 52, "Input"],
+Cell[998, 35, 315, 9, 31, "Input"],
+Cell[1316, 46, 4330, 129, 272, "Input"],
+Cell[5649, 177, 91, 1, 31, InheritFromParent],
+Cell[5743, 180, 1098, 31, 52, "Input"],
+Cell[6844, 213, 88, 1, 31, InheritFromParent],
+Cell[6935, 216, 268, 6, 31, "Input"],
+Cell[7206, 224, 92, 1, 31, InheritFromParent],
+Cell[7301, 227, 192, 4, 31, "Input"],
+Cell[7496, 233, 91, 1, 31, InheritFromParent],
+Cell[7590, 236, 422, 7, 31, "Input"],
+Cell[8015, 245, 92, 1, 31, InheritFromParent],
+Cell[8110, 248, 71, 1, 31, "Input"],
+Cell[8184, 251, 193, 4, 31, "Input"],
+Cell[8380, 257, 91, 1, 31, InheritFromParent]
+}
+]
+*)
+
+(* End of internal cache information *)

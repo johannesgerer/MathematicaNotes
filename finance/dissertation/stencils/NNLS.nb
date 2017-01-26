@@ -1,0 +1,475 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     18937,        466]
+NotebookOptionsPosition[     18651,        452]
+NotebookOutlinePosition[     18995,        467]
+CellTagsIndexPosition[     18952,        464]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NNLSJo", "[", 
+   RowBox[{"A_", ",", "f_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"weights", ",", "w", ",", 
+      RowBox[{"d", "=", "A"}], ",", 
+      RowBox[{"b", "=", "f"}], ",", "i"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"weights", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"w", "[", "i", "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", 
+          RowBox[{
+           RowBox[{"Dimensions", "[", "A", "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Sqrt", "[", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
+         RowBox[{"weights", "/.", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], "&"}], "[", 
+      RowBox[{"NMinimize", "[", 
+       RowBox[{
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"#", ">=", "0"}], "&"}], ")"}], "/@", "weights"}], 
+           ")"}], ",", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"d", ".", "weights"}], "-", "b"}], ")"}], ".", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"d", ".", "weights"}], "-", "b"}], ")"}]}]}], "]"}], ",",
+         "weights"}], "]"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.509046649880844*^9, 3.5090467867701654`*^9}, 
+   3.5090468421387835`*^9, {3.5090535177635107`*^9, 3.5090535202036505`*^9}, {
+   3.5090539001473427`*^9, 3.5090539024194727`*^9}, {3.509053935053279*^9, 
+   3.5090539378584394`*^9}, {3.5090594268220396`*^9, 3.509059427324068*^9}, {
+   3.5096945796648345`*^9, 3.5096945881980495`*^9}, {3.509696826033041*^9, 
+   3.509696832335452*^9}, {3.5098790093042717`*^9, 3.509879012393077*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"Coded", " ", "by", " ", "Michael", " ", "Woodhams"}], ",", 
+    RowBox[{
+    "from", " ", "algorithm", " ", "by", " ", "Lawson", " ", "and", " ", 
+     "Hanson"}], ","}], "*)"}], 
+  RowBox[{"(*", 
+   RowBox[{"\"\<Solving Least Squares Problems\>\"", ",", 
+    RowBox[{"1974", " ", "and", " ", "1995."}]}], "*)"}], 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"bitsToIndices", "[", "v_", "]"}], ":=", 
+     RowBox[{"Select", "[", 
+      RowBox[{
+       RowBox[{"Table", "[", 
+        RowBox[{"i", ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", 
+           RowBox[{"Length", "[", "v", "]"}]}], "}"}]}], "]"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"v", "[", 
+          RowBox[{"[", "#", "]"}], "]"}], "\[Equal]", "1"}], "&"}]}], "]"}]}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NNLS", "[", 
+      RowBox[{"A_", ",", "f_"}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "x", ",", "zeroed", ",", "w", ",", "t", ",", "Ap", ",", "z", ",", "q",
+          ",", "\[Alpha]", ",", "i", ",", "zeroedSet", ",", "positiveSet", 
+         ",", "toBeZeroed", ",", "compressedZ", ",", "Q", ",", "R"}], "}"}], 
+       ",", 
+       RowBox[{"(*", 
+        RowBox[{
+        "Use", " ", "delayed", " ", "evaluation", " ", "so", " ", "that", " ",
+          "these", " ", "are", " ", "recalculated", " ", "on", " ", "the", 
+         " ", "fly", " ", "as", " ", 
+         RowBox[{"needed", ":"}]}], "*)"}], 
+       RowBox[{
+        RowBox[{"zeroedSet", ":=", 
+         RowBox[{"bitsToIndices", "[", "zeroed", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"positiveSet", ":=", 
+         RowBox[{"bitsToIndices", "[", 
+          RowBox[{"1", "-", "zeroed"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{
+          "Init", " ", "x", " ", "to", " ", "vector", " ", "of", " ", 
+           "zeros"}], ",", 
+          RowBox[{
+          "same", " ", "length", " ", "as", " ", "a", " ", "row", " ", "of", 
+           " ", "A"}]}], "*)"}], 
+        RowBox[{"debug", "[", 
+         RowBox[{"\"\<A=\>\"", ",", 
+          RowBox[{"MatrixForm", "[", "A", "]"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"x", "=", 
+         RowBox[{"0", " ", 
+          RowBox[{
+          "A", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}]}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"debug", "[", 
+         RowBox[{"\"\<x=\>\"", ",", "x"}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{
+          "Init", " ", "zeroed", " ", "to", " ", "vector", " ", "of", " ", 
+           "ones"}], ",", 
+          RowBox[{"same", " ", "length", " ", "as", " ", "x"}]}], "*)"}], 
+        RowBox[{"zeroed", "=", 
+         RowBox[{"1", "-", "x"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"debug", "[", 
+         RowBox[{"\"\<zeroed=\>\"", ",", "zeroed"}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"w", "=", 
+         RowBox[{
+          RowBox[{"Transpose", "[", "A", "]"}], ".", 
+          RowBox[{"(", 
+           RowBox[{"f", "-", 
+            RowBox[{"A", ".", "x"}]}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"debug", "[", 
+         RowBox[{"\"\<w=\>\"", ",", "w"}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"While", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"zeroedSet", "\[NotEqual]", 
+            RowBox[{"{", "}"}]}], "&&", 
+           RowBox[{
+            RowBox[{"Max", "[", 
+             RowBox[{
+             "w", "\[LeftDoubleBracket]", "zeroedSet", 
+              "\[RightDoubleBracket]"}], "]"}], ">", "0"}]}], ",", 
+          RowBox[{
+           RowBox[{"debug", "[", "\"\<Outer loop starts.\>\"", "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+             RowBox[{
+             "The", " ", "index", " ", "t", " ", "of", " ", "the", " ", 
+              "largest", " ", "element", " ", "of", " ", "w"}], ","}], "*)"}], 
+           RowBox[{"(*", 
+            RowBox[{
+            "subject", " ", "to", " ", "the", " ", "constraint", " ", "t", 
+             " ", "is", " ", "zeroed"}], "*)"}], 
+           RowBox[{"t", "=", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Position", "[", 
+               RowBox[{
+                RowBox[{"w", " ", "zeroed"}], ",", 
+                RowBox[{"Max", "[", 
+                 RowBox[{"w", " ", "zeroed"}], "]"}], ",", "1", ",", "1"}], 
+               "]"}], "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+             "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"debug", "[", 
+            RowBox[{"\"\<t=\>\"", ",", "t"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+            "zeroed", "\[LeftDoubleBracket]", "t", "\[RightDoubleBracket]"}], 
+            "=", "0"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"debug", "[", 
+            RowBox[{"\"\<zeroed=\>\"", ",", "zeroed"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{"Ap", "=", 
+             RowBox[{
+             "the", " ", "columns", " ", "of", " ", "A", " ", "indexed", " ", 
+              "by", " ", "positiveSet"}]}], "*)"}], 
+           RowBox[{"Ap", "=", 
+            RowBox[{"Transpose", "[", 
+             RowBox[{
+              RowBox[{"Transpose", "[", "A", "]"}], "\[LeftDoubleBracket]", 
+              "positiveSet", "\[RightDoubleBracket]"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"debug", "[", 
+            RowBox[{"\"\<Ap=\>\"", ",", 
+             RowBox[{"MatrixForm", "[", "Ap", "]"}]}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{"Minimize", " ", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Ap", ".", "compressedZ"}], "-", "f"}], ")"}], " ", 
+             "by", " ", "QR", " ", "decomp"}], "*)"}], 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"Q", ",", "R"}], "}"}], "=", 
+            RowBox[{"QRDecomposition", "[", "Ap", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"compressedZ", "=", 
+            RowBox[{
+             RowBox[{"Inverse", "[", "R", "]"}], ".", "Q", ".", "f"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+            "Create", " ", "vector", " ", "z", " ", "with", " ", "0", " ", 
+             "in", " ", "zeroed", " ", "indices", " ", "and", " ", 
+             "compressedZ", " ", "entries", " ", "elsewhere"}], "*)"}], 
+           RowBox[{"z", "=", 
+            RowBox[{"0", " ", "x"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+            "z", "\[LeftDoubleBracket]", "positiveSet", 
+             "\[RightDoubleBracket]"}], "=", "compressedZ"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"debug", "[", 
+            RowBox[{"\"\<z=\>\"", ",", "z"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Min", "[", "z", "]"}], "<", "0"}], ",", 
+             RowBox[{"(*", 
+              RowBox[{
+               RowBox[{"There", " ", "is", " ", "a", " ", "wart", " ", 
+                RowBox[{"here", ":", 
+                 RowBox[{"x", " ", "can", " ", "have", " ", "zeros"}]}]}], 
+               ",", 
+               RowBox[{"giving", " ", "infinities", " ", "or", " ", 
+                RowBox[{"indeterminates", ".", "They"}], " ", 
+                RowBox[{"don", "'"}], "t", " ", "matter"}], ",", 
+               RowBox[{
+               "as", " ", "we", " ", "ignore", " ", "those", " ", "elements", 
+                " ", 
+                RowBox[{"(", 
+                 RowBox[{"not", " ", "in", " ", "postitiveSet"}], ")"}], " ", 
+                "but", " ", "it", " ", "will", " ", "produce", " ", 
+                RowBox[{"warnings", "."}]}]}], "*)"}], 
+             RowBox[{
+              RowBox[{"debug", "[", "\"\<Inner loop start\>\"", "]"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"(*", 
+               RowBox[{"find", " ", "smallest", " ", 
+                RowBox[{
+                 RowBox[{
+                 "x", "\[LeftDoubleBracket]", "q", "\[RightDoubleBracket]"}], 
+                 "/", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{
+                   "x", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}], "-", 
+                   RowBox[{
+                   "z", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}]}], ")"}]}]}], "*)"}], 
+              RowBox[{"(*", 
+               RowBox[{
+                RowBox[{"such", " ", 
+                 RowBox[{"that", ":", 
+                  RowBox[{"q", " ", "is", " ", "not", " ", "zeroed"}]}]}], 
+                ",", 
+                RowBox[{
+                 RowBox[{
+                 "z", "\[LeftDoubleBracket]", "q", "\[RightDoubleBracket]"}], 
+                 "<", "0"}]}], "*)"}], 
+              RowBox[{"\[Alpha]", "=", "Infinity"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"For", "[", 
+               RowBox[{
+                RowBox[{"q", "=", "1"}], ",", 
+                RowBox[{"q", "\[LessEqual]", 
+                 RowBox[{"Length", "[", "x", "]"}]}], ",", 
+                RowBox[{"q", "++"}], ",", 
+                RowBox[{
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    "zeroed", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}], "\[Equal]", "0"}], "&&", 
+                    RowBox[{
+                    RowBox[{
+                    "z", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}], "<", "0"}]}], ",", 
+                   RowBox[{
+                    RowBox[{"\[Alpha]", "=", 
+                    RowBox[{"Min", "[", 
+                    RowBox[{"\[Alpha]", ",", 
+                    RowBox[{
+                    RowBox[{
+                    "x", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    "x", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}], "-", 
+                    RowBox[{
+                    "z", "\[LeftDoubleBracket]", "q", 
+                    "\[RightDoubleBracket]"}]}], ")"}]}]}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"debug", "[", 
+                    RowBox[{
+                    "\"\<After trying index q=\>\"", ",", "q", ",", 
+                    "\"\< \[Alpha]=\>\"", ",", "\[Alpha]"}], "]"}], ";"}]}], 
+                  "]"}], ";"}]}], 
+               RowBox[{"(*", "if", "*)"}], "]"}], ";", 
+              RowBox[{"(*", "for", "*)"}], 
+              RowBox[{"debug", "[", 
+               RowBox[{"\"\<\[Alpha]=\>\"", ",", "\[Alpha]"}], "]"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"x", "=", 
+               RowBox[{"x", "+", 
+                RowBox[{"\[Alpha]", 
+                 RowBox[{"(", 
+                  RowBox[{"z", "-", "x"}], ")"}]}]}]}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"debug", "[", 
+               RowBox[{"\"\<x=\>\"", ",", "x"}], "]"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"toBeZeroed", "=", 
+               RowBox[{"Select", "[", 
+                RowBox[{"positiveSet", ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Abs", "[", 
+                    RowBox[{
+                    "x", "\[LeftDoubleBracket]", "#", 
+                    "\[RightDoubleBracket]"}], "]"}], "<", 
+                   RowBox[{"10", "^", 
+                    RowBox[{"-", "13"}]}]}], "&"}]}], "]"}]}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"debug", "[", 
+               RowBox[{"\"\<toBeZeroed=\>\"", ",", "toBeZeroed"}], "]"}], ";",
+               "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{
+               "zeroed", "\[LeftDoubleBracket]", "toBeZeroed", 
+                "\[RightDoubleBracket]"}], "=", "1"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{
+               "x", "\[LeftDoubleBracket]", "toBeZeroed", 
+                "\[RightDoubleBracket]"}], "=", "0"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"(*", 
+               RowBox[{"Duplicated", " ", "from", " ", "above"}], "*)"}], 
+              RowBox[{"(*", 
+               RowBox[{"Ap", "=", 
+                RowBox[{
+                "the", " ", "columns", " ", "of", " ", "A", " ", "indexed", 
+                 " ", "by", " ", "positiveSet"}]}], "*)"}], 
+              RowBox[{"Ap", "=", 
+               RowBox[{"Transpose", "[", 
+                RowBox[{
+                 RowBox[{"Transpose", "[", "A", "]"}], "\[LeftDoubleBracket]",
+                  "positiveSet", "\[RightDoubleBracket]"}], "]"}]}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"debug", "[", 
+               RowBox[{"\"\<Ap=\>\"", ",", 
+                RowBox[{"MatrixForm", "[", "Ap", "]"}]}], "]"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"(*", 
+               RowBox[{"Minimize", " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"Ap", ".", "compressedZ"}], "-", "f"}], ")"}], " ", 
+                "by", " ", "QR", " ", "decomp"}], "*)"}], 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"Q", ",", "R"}], "}"}], "=", 
+               RowBox[{"QRDecomposition", "[", "Ap", "]"}]}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"compressedZ", "=", 
+               RowBox[{
+                RowBox[{"Inverse", "[", "R", "]"}], ".", "Q", ".", "f"}]}], 
+              ";", "\[IndentingNewLine]", 
+              RowBox[{"(*", 
+               RowBox[{
+               "Create", " ", "vector", " ", "z", " ", "with", " ", "0", " ", 
+                "in", " ", "zeroed", " ", "indices", " ", "and", " ", 
+                "compressedZ", " ", "entries", " ", "elsewhere"}], "*)"}], 
+              RowBox[{"z", "=", 
+               RowBox[{"0", " ", "x"}]}], ";", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{
+               "z", "\[LeftDoubleBracket]", "positiveSet", 
+                "\[RightDoubleBracket]"}], "=", "compressedZ"}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"debug", "[", 
+               RowBox[{"\"\<z=\>\"", ",", "z"}], "]"}], ";"}]}], "]"}], ";", 
+           RowBox[{"(*", 
+            RowBox[{"end", " ", "inner", " ", "while", " ", "loop"}], "*)"}], 
+           RowBox[{"x", "=", "z"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"debug", "[", 
+            RowBox[{"\"\<x=\>\"", ",", "x"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"w", "=", 
+            RowBox[{
+             RowBox[{"Transpose", "[", "A", "]"}], ".", 
+             RowBox[{"(", 
+              RowBox[{"f", "-", 
+               RowBox[{"A", ".", "x"}]}], ")"}]}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"debug", "[", 
+            RowBox[{"\"\<w=\>\"", ",", "w"}], "]"}], ";"}]}], "]"}], ";", 
+        RowBox[{"(*", 
+         RowBox[{"end", " ", "outer", " ", "while", " ", "loop"}], "*)"}], 
+        RowBox[{"Return", "[", "x", "]"}], ";"}]}], "]"}]}], ";"}], 
+   RowBox[{"(*", 
+    RowBox[{"end", " ", "module"}], "*)"}]}]}]], "Input",
+ CellChangeTimes->{{3.509045650279336*^9, 3.5090456502803364`*^9}, {
+  3.5096654987644296`*^9, 3.509665499858492*^9}}]
+},
+WindowSize->{707, 866},
+WindowMargins->{{60, Automatic}, {85, Automatic}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (November 7, 2010)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 2061, 55, 112, "Input"],
+Cell[2621, 77, 16026, 373, 1232, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
